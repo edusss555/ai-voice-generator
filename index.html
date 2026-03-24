@@ -1,33 +1,32 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-    <title>AI Voice Generator</title>
-</head>
 <body>
-    <h2>AI Voice Generator</h2>
 
-    <textarea id="text" rows="5" cols="50" placeholder="Enter text"></textarea><br><br>
+<h2>AI Voice Generator 🎤</h2>
 
-    <button onclick="generateVoice()">Generate Voice</button>
+<textarea id="text" rows="5" cols="50" placeholder="Enter text"></textarea><br><br>
 
-    <audio id="audio" controls></audio>
+<button onclick="generateVoice()">Generate Voice</button>
 
-    <script>
-        async function generateVoice() {
-            let text = document.getElementById("text").value;
+<audio id="audio" controls></audio>
 
-            let response = await fetch("https://YOUR-BACKEND-URL/tts", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ text: text })
-            });
+<script>
+async function generateVoice() {
+    let text = document.getElementById("text").value;
 
-            let blob = await response.blob();
-            let url = URL.createObjectURL(blob);
-            document.getElementById("audio").src = url;
-        }
-    </script>
+    let response = await fetch("http://localhost:3000/tts", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: text })
+    });
+
+    let blob = await response.blob();
+    let url = URL.createObjectURL(blob);
+    document.getElementById("audio").src = url;
+}
+</script>
+
 </body>
 </html>
